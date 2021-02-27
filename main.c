@@ -59,7 +59,7 @@
 
 
 #define DEAD_BEEF   0xDEADBEEF /**< Value used as error code on stack dump, can be used to identify stack location on stack unwind. */
-#define DEVICE_NAME "SmartLock_Pair"
+#define DEVICE_NAME "GoVeloSmartLock"
 
 #ifndef NFC_PAIRING_MODE
     #define NFC_PAIRING_MODE NFC_PAIRING_MODE_JUST_WORKS
@@ -132,7 +132,6 @@ static void nfc_pairing_init()
 int main(void)
 {
     // Initialize.
-    uart_init();
     log_init();
     timer_init();
     bool erase_bonds = buttons_init();

@@ -101,65 +101,6 @@ static ble_uuid_t m_adv_uuids[] =                                               
     {BLE_UUID_UARTS_SERVICE, UARTS_SERVICE_UUID_TYPE}
 };
 
-/**@brief   Function for handling app_uart events.
- *
- * @details This function will receive a single character from the app_uart module and append it to
- *          a string. The string will be sent over BLE when the last character received was a
- *          'new line' '\n' (hex 0x0A) or if the string has reached the maximum data length.
- */
-/**@snippet [Handling the data received over UART] */
-void uart_event_handle(app_uart_evt_t * p_event)
-{
-    static uint8_t data_array[BLE_UARTS_MAX_DATA_LEN];
-    static uint8_t index = 0;
-    uint32_t       err_code;
-
-    switch (p_event->evt_type)
-    {
-        case APP_UART_DATA_READY:
-            UNUSED_VARIABLE(app_uart_get(&data_array[index]));
-            index++;
-
-            if ((data_array[index - 1] == '\n') ||
-                (data_array[index - 1] == '\r') ||
-                (index >= m_ble_uarts_max_data_len))
-            {
-                if (index > 1)
-                {
-                    NRF_LOG_DEBUG("Ready to send data over BLE NUS");
-                    NRF_LOG_HEXDUMP_DEBUG(data_array, index);
-
-                    do
-                    {
-                        uint16_t length = (uint16_t)index;
-
-                        err_code = ble_uarts_data_send(&m_uarts, data_array, &length, m_conn_handle);
-                        if ((err_code != NRF_ERROR_INVALID_STATE) &&
-                            (err_code != NRF_ERROR_RESOURCES) &&
-                            (err_code != NRF_ERROR_NOT_FOUND))
-                        {
-                            APP_ERROR_CHECK(err_code);
-                        }
-                    } while (err_code == NRF_ERROR_RESOURCES);
-                }
-
-                index = 0;
-            }
-            break;
-
-        case APP_UART_COMMUNICATION_ERROR:
-            APP_ERROR_HANDLER(p_event->data.error_communication);
-            break;
-
-        case APP_UART_FIFO_ERROR:
-            APP_ERROR_HANDLER(p_event->data.error_code);
-            break;
-
-        default:
-            break;
-    }
-}
-
 void uarts_ble_send_data(uint8_t data)
 {
   uint8_t notify[2] = {0, '\n'};
@@ -190,32 +131,13 @@ static void uarts_data_handler(ble_uarts_evt_t * p_evt)
     {
         uint32_t err_code;
 
-        NRF_LOG_DEBUG("Received data from BLE NUS. Writing data on UART.");
-
-        NRF_LOG_HEXDUMP_DEBUG(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
-
         for (uint32_t i = 0; i < p_evt->params.rx_data.length; i++)
         {
-            do
-            {
-              code[i] = p_evt->params.rx_data.p_data[i];
-              if (code[i] >= 0x30 && code[i] <= 0x39)
-                code[i] = code[i] - 0x30;
-              else
-                code[i] = code[i] - 0x57;
-
-              //NRF_LOG_INFO("READ DATA = 0x%x", code[i]);
-              err_code = app_uart_put(p_evt->params.rx_data.p_data[i]);
-              if ((err_code != NRF_SUCCESS) && (err_code != NRF_ERROR_BUSY))
-              {
-                NRF_LOG_ERROR("Failed receiving NUS message. Error 0x%x. ", err_code);
-                APP_ERROR_CHECK(err_code);
-              }
-            } while (err_code == NRF_ERROR_BUSY);
-        }
-        if (p_evt->params.rx_data.p_data[p_evt->params.rx_data.length - 1] == '\r')
-        {
-            while (app_uart_put('\n') == NRF_ERROR_BUSY);
+            code[i] = p_evt->params.rx_data.p_data[i];
+            if (code[i] >= 0x30 && code[i] <= 0x39)
+              code[i] = code[i] - 0x30;
+            else
+              code[i] = code[i] - 0x57;
         }
 
         smart_lock_parse_data(code, p_evt->params.rx_data.length);
@@ -532,38 +454,6 @@ void services_init(void)
     uarts_init.data_handler = uarts_data_handler;
 
     err_code = ble_uarts_init(&m_uarts, &uarts_init);
-    APP_ERROR_CHECK(err_code);
-}
-
-
-/**@brief  Function for initializing the UART module.
- */
-/**@snippet [UART Initialization] */
-void uart_init(void)
-{
-    uint32_t                     err_code;
-
-    app_uart_comm_params_t const comm_params =
-    {
-        .rx_pin_no    = RX_PIN_NUMBER,
-        .tx_pin_no    = TX_PIN_NUMBER,
-        .rts_pin_no   = RTS_PIN_NUMBER,
-        .cts_pin_no   = CTS_PIN_NUMBER,
-        .flow_control = APP_UART_FLOW_CONTROL_DISABLED,
-        .use_parity   = false,
-#if defined (UART_PRESENT)
-        .baud_rate    = NRF_UART_BAUDRATE_115200
-#else
-        .baud_rate    = NRF_UARTE_BAUDRATE_115200
-#endif
-    };
-
-    APP_UART_FIFO_INIT(&comm_params,
-                       UART_RX_BUF_SIZE,
-                       UART_TX_BUF_SIZE,
-                       uart_event_handle,
-                       APP_IRQ_PRIORITY_LOWEST,
-                       err_code);
     APP_ERROR_CHECK(err_code);
 }
 

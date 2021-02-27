@@ -39,7 +39,7 @@ void smart_lock_pulse_led(void)
 	{
 		nrf_gpio_pin_clear(LED_PIN);
 		nrf_delay_ms(100);
-    nrf_gpio_pin_set(LED_PIN);
+                nrf_gpio_pin_set(LED_PIN);
 		nrf_delay_ms(100);
 		nrf_gpio_pin_clear(LED_PIN);
 	}
@@ -204,8 +204,8 @@ void smart_lock_parse_data(uint8_t *buf, int len)
 //			}
 
 			user_code = buf[2];
-		  NRF_LOG_INFO("User access code = %x", user_code);
-      NRF_LOG_INFO("valid code left = %d", sl_info.code_valid);
+                        NRF_LOG_INFO("User access code = %x", user_code);
+                        NRF_LOG_INFO("valid code left = %d", sl_info.code_valid);
 
 			if (sl_info.code_valid <= 1)
 			{
@@ -221,7 +221,7 @@ void smart_lock_parse_data(uint8_t *buf, int len)
 				goto out;
 			}
 
-      if (smart_lock_compare_date(buf) != 0)
+                        if (smart_lock_compare_date(buf) != 0)
 			{
 				NRF_LOG_INFO("Code is outdated");
 				uarts_ble_send_data(SL_CODE_OUT_OF_DATE);
@@ -229,7 +229,7 @@ void smart_lock_parse_data(uint8_t *buf, int len)
 			}
 
 			for (i = 0; i < SL_CODE_NUM; i++)
-		  {
+                        {
 				if (user_code == sl_info.access_code[i])
 				{
 					sl_info.code_valid--;
@@ -251,12 +251,12 @@ void smart_lock_parse_data(uint8_t *buf, int len)
 			smart_lock_clear_code();
 			smart_lock_add_info(buf, len, sl_len);
 			NRF_LOG_INFO("Update access codes successfully!");
-		  uarts_ble_send_data(SL_UPDATE_SUCCESS);
-		  break;
+                        uarts_ble_send_data(SL_UPDATE_SUCCESS);
+                        break;
 		case SL_LOCK_CMD:
 			smart_lock_locked();
 
-		  if (smart_lock_read_locker() == LOCKER_CONNECT)
+                        if (smart_lock_read_locker() == LOCKER_CONNECT)
 			{
 				NRF_LOG_INFO("Lock successful");
 				smart_lock_active_beep(false);
@@ -271,7 +271,7 @@ void smart_lock_parse_data(uint8_t *buf, int len)
 			{
 				sl_info.lock_status = SL_UNUSABLE;
 			}
-		  break;
+                        break;
 		case SL_APP_READY_CMD:
 			break;
 		case SL_RESET_CMD:
@@ -279,11 +279,11 @@ void smart_lock_parse_data(uint8_t *buf, int len)
 		  uarts_ble_send_data(SL_RESET_SUCCESS);
 			break;
 		default:
-      NRF_LOG_INFO("Unknown CMD !");
-		  break;
+                NRF_LOG_INFO("Unknown CMD !");
+		break;
 	}
 
-out:
+        out:
 	ble_lock_handle = false;
 }
 

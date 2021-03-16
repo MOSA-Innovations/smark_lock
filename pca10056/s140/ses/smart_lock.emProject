@@ -131,18 +131,45 @@
       <file file_name="$(nRF_SDK_ROOT)/components/libraries/crypto/nrf_crypto_shared.c" />
     </folder>
     <folder Name="Application">
-      <file file_name="../../../ble_m.c" />
-      <file file_name="../../../ble_m.h" />
-      <file file_name="../../../buttons_m.c" />
-      <file file_name="../../../buttons_m.h" />
       <file file_name="../../../main.c" />
-      <file file_name="../../../pm_m.c" />
-      <file file_name="../../../pm_m.h" />
-      <file file_name="../../../smartlock.c" />
-      <file file_name="../../../smartlock.h" />
-      <file file_name="../../../uarts.c" />
-      <file file_name="../../../uarts.h" />
       <file file_name="../config/sdk_config.h" />
+      <file file_name="../../../led_control.c" />
+      <file file_name="../../../led_control.h" />
+      <file file_name="../../../lock_mech_control.c" />
+      <file file_name="../../../lock_mech_control.h" />
+      <file file_name="../../../button_control.c" />
+      <file file_name="../../../button_control.h" />
+      <file file_name="../../../persistent_storage.c" />
+      <file file_name="../../../persistent_storage.h" />
+      <file file_name="../../../security.c" />
+      <configuration Name="Release" build_exclude_from_build="No" />
+      <file file_name="../../../security.h" />
+      <file file_name="../../../smart_lock_core.c" />
+      <file file_name="../../../smart_lock_core.h" />
+      <file file_name="../../../timers_control.c" />
+      <file file_name="../../../timers_control.h" />
+      <file file_name="../../../smart_lock_gatt_service.c" />
+      <file file_name="../../../ble_control.c" />
+      <file file_name="../../../ble_control.h" />
+      <file file_name="../../../log_control.c" />
+      <file file_name="../../../log_control.h" />
+      <file file_name="../../../power_management_control.c" />
+      <file file_name="../../../power_management_control.h" />
+      <file file_name="../../../nfc_control.c" />
+      <file file_name="../../../nfc_control.h" />
+      <file file_name="../../../gpio_control.c">
+        <configuration Name="Release" build_exclude_from_build="Yes" />
+      </file>
+      <file file_name="../../../gpio_control.h">
+        <configuration Name="Release" build_exclude_from_build="Yes" />
+      </file>
+      <file file_name="../../../peer_control.c" />
+      <file file_name="../../../peer_control.h" />
+      <file file_name="../../../smart_lock.c" />
+      <file file_name="../../../smart_lock.h" />
+      <file file_name="../../../smart_lock_gatt_service.h" />
+      <file file_name="../../../audio_control.c" />
+      <file file_name="../../../audio_control.h" />
     </folder>
     <folder Name="nRF_micro-ecc">
       <file file_name="$(nRF_SDK_ROOT)/external/micro-ecc/nrf52hf_armgcc/armgcc/micro_ecc_lib_nrf52.a" />

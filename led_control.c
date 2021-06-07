@@ -25,12 +25,15 @@
 #include "nrf_delay.h"
 #include "bsp.h"
 
-#define LED_PIN     LED_1
+#define LED_PIN         LED_1
+#define LOCK_LED_PIN    LED_2
 
 void led_init(void)
 {
     nrf_gpio_cfg_output(LED_PIN);
+    nrf_gpio_cfg_output(LOCK_LED_PIN);
     nrf_gpio_pin_set(LED_PIN);
+    nrf_gpio_pin_set(LOCK_LED_PIN);
 }
 
 void led_pulse(void)
@@ -43,5 +46,15 @@ void led_pulse(void)
         nrf_delay_ms(100);
         nrf_gpio_pin_clear(LED_PIN);
     }
+}
+
+void led_lock_event(void)
+{
+    nrf_gpio_pin_set(LOCK_LED_PIN);
+}
+
+void led_unlock_event(void)
+{
+    nrf_gpio_pin_clear(LOCK_LED_PIN);
 }
 //EOF

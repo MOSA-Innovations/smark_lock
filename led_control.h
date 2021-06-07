@@ -31,4 +31,12 @@ void led_init(void);
  */
 void led_pulse(void);
 
+/**@brief LED event on lock.
+ */
+void led_lock_event(void);
+
+/**@brief LED event on unlock
+ */
+void led_unlock_event(void);
+
 #endif // LED_CONTROL_H__

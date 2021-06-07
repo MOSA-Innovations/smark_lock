@@ -22,7 +22,6 @@
 
 #include "peer_control.h"
 #include "ble_conn_state.h"
-#include "ble_m.h"
 #include "fds.h"
 #include "sdk_errors.h"
 #include "peer_manager.h"

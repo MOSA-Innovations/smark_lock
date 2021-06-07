@@ -12,15 +12,26 @@ The basic way to implement the communcations via BLE between the board and the d
 
 # File
 
-* `blm.c` :  Bluetooth stack initialization, hanlding BLE/UART events.
-* `buttons_m.c` : Handle the button events.
-* `main.c` : Initialize BLE and NFC service.
-* `pm_m.c` : Handle Peer management events.
-* `smartlock.c` : Parse commands and deal with the controller of eletronic locker.
-* `uarts.c` : Create and config a new service in GATT.
+* `audio_control.c` :  Handle audio events
+* `ble_control.c` : Handle Bluetoot Low Energy (BLE) events and communication
+* `button_control.c` : Handle button events
+* `gpio_control.c` : Handle GPIO events
+* `led_control.c` : Handle LED events
+* `lock_mech_events.c` : Handle locking mechanism events
+* `log_control.c` : Handle events logger for debug
+* `main.c` : Main file
+* `nfc_control.c` : Handle NFC events and communication
+* `peer_control.c` : Handle peer events
+* `persistent_storage.c` : Handle persistent storage events
+* `power_management_control.c` : Handle power management events
+* `security.c` : Handle security events
+* `smart_lock.c` : Top level Smart Lock control
+* `smart_lock_core.c` : Smart Lock core functionality
+* `smart_lock_gatt_service` : Custom GATT service for Smart Lock
+* `timer_control.c` : Handle timer events
 
 # References
 
-[Nordic SDK 16.0](https://infocenter.nordicsemi.com/index.jsp?topic=%2Fstruct_sdk%2Fstruct%2Fsdk_nrf5_latest.html&cp=7_1)
+[Nordic SDK 17.0.2](https://infocenter.nordicsemi.com/index.jsp?topic=%2Fstruct_sdk%2Fstruct%2Fsdk_nrf5_latest.html)
 
 [Nordic DevZone](https://devzone.nordicsemi.com/)

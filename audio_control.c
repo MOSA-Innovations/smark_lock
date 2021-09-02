@@ -25,7 +25,7 @@
 #include "nrf_delay.h"
 #include "nrf_gpio.h"
 
-#define BEEP_PIN                        NRF_GPIO_PIN_MAP(1, 7)
+#define BEEP_PIN                        NRF_GPIO_PIN_MAP(0, 7)
 #define LOCK_SUCCESS_BEEP_LENGTH_MS     (200)
 #define LOCK_FAIL_BEEP_LENGTH_MS        (3000)
 #define UNLOCK_SUCCESS_BEEP_LENGTH_MS   (200)

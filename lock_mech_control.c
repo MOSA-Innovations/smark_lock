@@ -30,9 +30,22 @@
 #include "smart_lock.h"
 #include "led_control.h"
 
+#if defined(NRF52840_XXAA)
 #define CHAIN_DETECT_PIN    NRF_GPIO_PIN_MAP(1, 3)
 #define LOCK_MOTOR_DIR_PIN  NRF_GPIO_PIN_MAP(1, 1)
 #define LOCK_MOTOR_STEP_PIN NRF_GPIO_PIN_MAP(1, 2)
+#elif defined(NRF52832_XXAA)
+//#define CHAIN_DETECT_PIN    NRF_GPIO_PIN_MAP(0, 2)
+//#define LOCK_MOTOR_DIR_PIN  NRF_GPIO_PIN_MAP(0, 3)
+//#define LOCK_MOTOR_STEP_PIN NRF_GPIO_PIN_MAP(0, 4)
+#define CHAIN_DETECT_PIN    NRF_GPIO_PIN_MAP(0, 2)
+#define LOCK_MOTOR_DIR_PIN  NRF_GPIO_PIN_MAP(0, 3)
+#define LOCK_MOTOR_STEP_PIN NRF_GPIO_PIN_MAP(0, 4)
+#else
+#define CHAIN_DETECT_PIN    NRF_GPIO_PIN_MAP(0, 0)
+#define LOCK_MOTOR_DIR_PIN  NRF_GPIO_PIN_MAP(0, 0)
+#define LOCK_MOTOR_STEP_PIN NRF_GPIO_PIN_MAP(0, 0)
+#endif
 
 #define NUM_PULSES          (500)
 #define PULSE_WIDTH_MS      (1)

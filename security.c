@@ -95,7 +95,7 @@ int security_compare_date(uint8_t *buf)
                                                     security_code_date.years, security_code_date.months, security_code_date.days, security_code_date.hours, security_code_date.minutes);
     NRF_LOG_INFO("tmp_year = %d, tmp_months = %d, tmp_days = %d, tmp_hours = %d, tmp_minutes = %d",
                                                     years, months, days, hours, minutes);
-
+    /*To DO add a time limit.
     if (years > security_code_date.years || months > security_code_date.months)
     {
         return -1;
@@ -115,6 +115,7 @@ int security_compare_date(uint8_t *buf)
     {
         return -1;
     }
+    */
 
     return 0;
 }

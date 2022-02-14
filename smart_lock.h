@@ -29,6 +29,8 @@
 #define SL_UPDATE_CODE_CMD              0x2
 #define SL_APP_READY_CMD                0x3
 #define SL_RESET_CMD                    0x4
+#define SL_ADMIN_UNLOCK_CMD             0x5
+#define SL_LOCK_MECH_STATE_CMD          0x6
 
 #define SL_LOCK_SUCCESS                 0x10
 #define SL_UNLOCK_SUCCESS               0x11

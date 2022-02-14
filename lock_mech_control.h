@@ -29,6 +29,7 @@ typedef enum{
     SMART_LOCK_LOCKED,
     SMART_LOCK_UNLOCKED_CLOSED,
     SMART_LOCK_UNLOCKED_OPEN,
+    SMART_LOCK_UNLOCKED_OPEN_ADMIN,
     SMART_LOCK_MECH_ERROR
 } lock_mech_status_t;
 
@@ -40,6 +41,14 @@ lock_mech_status_t lock_mech_init(void);
  */
 lock_mech_status_t lock_mech_engage(bool check_status);
 
+/**@brief Function to engage locking mechanism.
+ */
+lock_mech_status_t lock_mech_engage_admin(bool check_status);
+
+/**@brief Function to disengage locking mechanism for both motors.
+ */
+lock_mech_status_t lock_mech_disengage_admin(void);
+
 /**@brief Function to disengage locking mechanism.
  */
 lock_mech_status_t lock_mech_disengage(void);
@@ -47,5 +56,9 @@ lock_mech_status_t lock_mech_disengage(void);
 /**@brief Function check locking mechanism status.
  */
 lock_mech_status_t lock_mech_get_status(void);
+
+lock_mech_status_t loch_mech_on_boot(void);
+
+void led_audio_lock_event(void);
 
 #endif // LOCK_MECH_CONTROL_H__

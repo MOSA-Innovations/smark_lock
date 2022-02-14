@@ -1,25 +1,29 @@
-/*
-  * The library is not extensively tested and only
-  * meant as a simple explanation and for inspiration.
-  * NO WARRANTY of ANY KIND is provided.
+
+
+ /* MPU-9150 Register Map
+  * Revision: 3.0
+  * Release Date: 10/24/2011
+  *
+  * This code is not extensively tested and only 
+  * meant as a simple explanation and for inspiration. 
+  * THE LIST OF REGISTERS MIGHT NOT BE ACCURATE
+  * NO WARRANTY of ANY KIND is provided. 
   */
   
-#ifndef MPU60x0_REG_MAP_H
-#define MPU60x0_REG_MAP_H
+#ifndef MPU9150_REG_MAP_H
+#define MPU9150_REG_MAP_H
 
-
-#define MPU_REG_SELF_TEST_X        0x0D // Dec 13,  R/W,  XA_TEST[4-2] XG_TEST[4-0]
-#define MPU_REG_SELF_TEST_Y        0x0E // Dec 14,  R/W,  YA_TEST[4-2] YG_TEST[4-0]
-#define MPU_REG_SELF_TEST_Z        0x0F // Dec 15,  R/W,  ZA_TEST[4-2] ZG_TEST[4-0]
-#define MPU_REG_SELF_TEST_A        0x10 // Dec 16,  R/W,  RESERVED XA_TEST[1-0] YA_TEST[1-0] ZA_TEST[1-0]
 
 #define MPU_REG_SMPLRT_DIV         0x19 // Dec 25,  R/W,  SMPLRT_DIV[7:0]
 #define MPU_REG_CONFIG             0x1A // Dec 26,  R/W,  - - EXT_SYNC_SET[2:0] DLPF_CFG[2:0]
 #define MPU_REG_GYRO_CONFIG        0x1B // Dec 27,  R/W,  - - - FS_SEL [1:0] - - -
-#define MPU_REG_ACCEL_CONFIG       0x1C // Dec 28,  R/W,  XA_ST YA_ST ZA_ST AFS_SEL[1:0]
-
+#define MPU_REG_ACCEL_CONFIG       0x1C // Dec 28,  R/W,  XA_ST YA_ST ZA_ST AFS_SEL[1:0] ACCEL_HPF[2:0]
+#define MPU_REG_FF_THR             0x1D // Dec 29,  R/W,  FF_THR[7:0]
+#define MPU_REG_FF_DUR             0x1E // Dec 30,  R/W,  FF_DUR[7:0]
 #define MPU_REG_MOT_THR            0x1F // Dec 31,  R/W,  MOT_THR[7:0]
-
+#define MPU_REG_MOT_DUR            0x20 // Dec 32,  R/W,  MOT_DUR[7:0]
+#define MPU_REG_ZRMOT_THR          0x21 // Dec 33,  R/W,  ZRMOT_THR[7:0]
+#define MPU_REG_ZRMOT_DUR          0x22 // Dec 34,  R/W,  ZRMOT_DUR[7:0]
 #define MPU_REG_FIFO_EN            0x23 // Dec 35,  R/W,  TEMP_FIFO_ENXG_FIFO_ENYG_FIFO_ENZG_FIFO_ENACCEL_FIFO_ENSLV2_FIFO_ENSLV1_FIFO_ENSLV0_FIFO_EN
 #define MPU_REG_I2C_MST_CTRL       0x24 // Dec 36,  R/W,  MULT_MST_ENWAIT_FOR_ESSLV_3_FIFO_ENI2C_MST_P_NSR I2C_MST_CLK[3:0]
 #define MPU_REG_I2C_SLV0_ADDR      0x25 // Dec 37,  R/W,  I2C_SLV0_RW I2C_SLV0_ADDR[6:0]
@@ -40,10 +44,10 @@
 #define MPU_REG_I2C_SLV4_CTRL      0x34 // Dec 52,  R/W,  I2C_SLV4_ENI2C_SLV4_INT_ENI2C_SLV4_REG_DIS I2C_MST_DLY[4:0]
 #define MPU_REG_I2C_SLV4_DI        0x35 // Dec 53,  R,    I2C_SLV4_DI[7:0]
 #define MPU_REG_I2C_MST_STATUS     0x36 // Dec 54,  R,    PASS_THROUGHI2C_SLV4_DONEI2C_LOST_ARBI2C_SLV4_NACKI2C_SLV3_NACKI2C_SLV2_NACKI2C_SLV1_NACKI2C_SLV0_NACK
-#define MPU_REG_INT_PIN_CFG        0x37 // Dec 55,  R/W,  INT_LEVEL INT_OPEN LATCH_INT_ENINT_RD_CLEARFSYNC_INT_LEVELFSYNC_INT_ENI2C_BYPASS_EN-
-#define MPU_REG_INT_ENABLE         0x38 // Dec 56,  R/W,  - MOT_EN -FIFO_OFLOW_ENI2C_MST_INT_EN - -DATA_RDY_EN
+#define MPU_REG_INT_PIN_CFG        0x37 // Dec 55,  R/W,  INT_LEVEL INT_OPEN LATCH_INT_ENINT_RD_CLEARFSYNC_INT_LEVELFSYNC_INT_ENI2C_BYPASS_ENCLKOUT_EN
+#define MPU_REG_INT_ENABLE         0x38 // Dec 56,  R/W,  FF_EN MOT_EN ZMOT_ENFIFO_OFLOW_ENI2C_MST_INT_EN - -DATA_RDY_EN
 
-#define MPU_REG_INT_STATUS         0x3A // Dec 58,  R,    - MOT_INT -FIFO_OFLOW_INTI2C_MST_INT - -DATA_RDY_INT
+#define MPU_REG_INT_STATUS         0x3A // Dec 58,  R,    FF_INT MOT_INT ZMOT_INTFIFO_OFLOW_INTI2C_MST_INT - -DATA_RDY_INT
 #define MPU_REG_ACCEL_XOUT_H       0x3B // Dec 59,  R,    ACCEL_XOUT[15:8]
 #define MPU_REG_ACCEL_XOUT_L       0x3C // Dec 60,  R,    ACCEL_XOUT[7:0]
 #define MPU_REG_ACCEL_YOUT_H       0x3D // Dec 61,  R,    ACCEL_YOUT[15:8]
@@ -82,6 +86,7 @@
 #define MPU_REG_EXT_SENS_DATA_21   0x5E // Dec 94,  R,    EXT_SENS_DATA_21[7:0]
 #define MPU_REG_EXT_SENS_DATA_22   0x5F // Dec 95,  R,    EXT_SENS_DATA_22[7:0]
 #define MPU_REG_EXT_SENS_DATA_23   0x60 // Dec 96,  R,    EXT_SENS_DATA_23[7:0]
+#define MPU_REG_MOT_DETECT_STATUS  0x61 // Dec 97,  R,    _XNEG MOT _XPOS MOT _YNEG MOT _YPOS MOT _ZNEG MOT _ZPOS MOT - _ZRMOT MOT
 
 #define MPU_REG_I2C_SLV0_DO        0x63 // Dec 99,  R/W,  I2C_SLV0_DO[7:0]
 #define MPU_REG_I2C_SLV1_DO        0x64 // Dec 100, R/W,  I2C_SLV1_DO[7:0]
@@ -89,7 +94,7 @@
 #define MPU_REG_I2C_SLV3_DO        0x66 // Dec 102, R/W,  I2C_SLV3_DO[7:0]
 #define MPU_REG_I2C_MST_DELAY_CTRL 0x67 // Dec 103, R/W,  DELAY_ES _SHADOW - - I2C_SLV4 _DLY_EN I2C_SLV3 _DLY_EN I2C_SLV2 _DLY_EN I2C_SLV1 _DLY_EN I2C_SLV0 _DLY_EN
 #define MPU_REG_SIGNAL_PATH_RESET  0x68 // Dec 104, R/W,  - - - - - _RESET GYRO _RESET ACCEL _RESET TEMP
-#define MPU_REG_MOT_DETECT_CTRL    0x69 // Dec 105, R/W,  - - ACCEL_ON_DELAY[1:0] - -
+#define MPU_REG_MOT_DETECT_CTRL    0x69 // Dec 105, R/W,  - - ACCEL_ON_DELAY[1:0] FF_COUNT[1:0] MOT_COUNT[1:0]
 #define MPU_REG_USER_CTRL          0x6A // Dec 106, R/W,  - FIFO_EN I2C_MST_ENI2C_IF_DIS -FIFO_RESETI2C_MST_RESETSIG_COND_RESET
 #define MPU_REG_PWR_MGMT_1         0x6B // Dec 107, R/W,  DEVICE_RESET SLEEP CYCLE - TEMP_DIS CLKSEL[2:0]
 #define MPU_REG_PWR_MGMT_2         0x6C // Dec 108, R/W,  LP_WAKE_CTRL[1:0] STBY_XA STBY_YA STBY_ZA STBY_XG STBY_YG STBY_ZG
@@ -99,4 +104,33 @@
 #define MPU_REG_FIFO_R_W           0x74 // Dec 116, R/W,  FIFO_DATA[7:0]
 #define MPU_REG_WHO_AM_I           0x75 // Dec 117, R,    - WHO_AM_I[6:1] -
 
-#endif // MPU60x0_REG_MAP_H
+
+
+
+/* *****************************************************************************
+ * MAGNETOMETER REGISTERS
+ *******************************************************************************/
+
+
+#define MPU_AK89XX_REG_WIA	 	0x00 // READ Device ID 8
+#define MPU_AK89XX_REG_INFO 	0x01 // READ Information 8
+#define MPU_AK89XX_REG_ST1 		0x02 // READ Status 1 Data status
+#define MPU_AK89XX_REG_HXL 		0x03 // READ Measurement data X-axis data
+#define MPU_AK89XX_REG_HXH 		0x04 //
+#define MPU_AK89XX_REG_HYL 		0x05 //
+#define MPU_AK89XX_REG_HYH 		0x06 //
+#define MPU_AK89XX_REG_HZL 		0x07 //
+#define MPU_AK89XX_REG_HZH 		0x08 //
+#define MPU_AK89XX_REG_ST2 		0x09 // READ Status 2 Data status
+#define MPU_AK89XX_REG_CNTL 	0x0A // READ/WRITE Control 
+#define MPU_AK89XX_REG_RST 		0x0B // READ/WRITE Reset DO NOT ACCESS
+#define MPU_AK89XX_REG_ASTC 	0x0C // READ/WRITE Self-test 8
+#define MPU_AK89XX_REG_TS1 		0x0D // READ/WRITE Test 1 DO NOT ACCESS
+#define MPU_AK89XX_REG_TS2 		0x0E // READ/WRITE Test 2 DO NOT ACCESS
+#define MPU_AK89XX_REG_I2CDIS 	0x0F // READ/WRITE I2C disable 
+#define MPU_AK89XX_REG_ASAX 	0x10 // READ X-axis sensitivity adjustment value Fuse ROM
+#define MPU_AK89XX_REG_ASAY 	0x11 // READ Y-axis sensitivity adjustment value Fuse ROM
+#define MPU_AK89XX_REG_ASAZ 	0x12 // READ Z-axis sensitivity adjustment value Fuse ROM
+
+#endif // MPU9150_REG_MAP_H
+

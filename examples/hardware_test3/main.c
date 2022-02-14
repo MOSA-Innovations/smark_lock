@@ -59,7 +59,8 @@
 #define STP1_STCK 24
 #define STP1_DIR 23
 
-#define STP_STANDBY 5
+#define STP_STANDBY_1 5
+#define STP_STANDBY_2 4
 
 #define STP2_STATUS 11
 #define STP2_MODE1 16
@@ -90,7 +91,7 @@ void gpio_init(void) {
 }
 
 void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
-  NRF_LOG_INFO("Had an interupt on IO30");
+  NRF_LOG_INFO("Had an interupt on MAGNETIC1");
   nrf_drv_gpiote_in_event_disable(PIN_IN);
   NRF_LOG_INFO("Disabled the interupt events on IO30");
 }
@@ -130,15 +131,18 @@ void motor_init(void) {
   nrf_gpio_cfg_output(STP2_DIR);
   nrf_gpio_cfg_input(STP2_STATUS, NRF_GPIO_PIN_PULLDOWN);
   //Stand by the motors
-  nrf_gpio_cfg_output(STP_STANDBY);
-  nrf_gpio_pin_write(STP_STANDBY, 0);
+  nrf_gpio_cfg_output(STP_STANDBY_1);
+  nrf_gpio_pin_write(STP_STANDBY_1, 0);
+  nrf_gpio_cfg_output(STP_STANDBY_2);
+  nrf_gpio_pin_write(STP_STANDBY_2, 0);
   nrf_gpio_pin_write(STP1_STCK, 0);
   nrf_gpio_pin_write(STP2_STCK, 0);
 }
 
 void motor_loop(uint32_t pulse_width, uint16_t steps, bool dir, uint8_t mode) {
   // Wake up the motor drivers
-  nrf_gpio_pin_write(STP_STANDBY, 1);
+  nrf_gpio_pin_write(STP_STANDBY_1, 1);
+  nrf_gpio_pin_write(STP_STANDBY_2, 1);
   // Set the mode and the direction
   nrf_gpio_pin_write(STP1_MODE1, mode & 1);
   nrf_gpio_pin_write(STP2_MODE1, mode & 1);
@@ -161,7 +165,8 @@ void motor_loop(uint32_t pulse_width, uint16_t steps, bool dir, uint8_t mode) {
 
 void motor1_loop(uint32_t pulse_width, uint16_t steps, bool dir, uint8_t mode) {
   // Wake up the motor drivers
-  nrf_gpio_pin_write(STP_STANDBY, 1);
+  nrf_gpio_pin_write(STP_STANDBY_1, 1);
+  nrf_gpio_pin_write(STP_STANDBY_2, 1);
   // Set the mode and the direction
   nrf_gpio_pin_write(STP1_MODE1, mode & 1);
   nrf_gpio_pin_write(STP1_MODE2, mode & 2);
@@ -178,7 +183,8 @@ void motor1_loop(uint32_t pulse_width, uint16_t steps, bool dir, uint8_t mode) {
 
 void motor2_loop(uint32_t pulse_width, uint16_t steps, bool dir, uint8_t mode) {
   // Wake up the motor drivers
-  nrf_gpio_pin_write(STP_STANDBY, 1);
+  nrf_gpio_pin_write(STP_STANDBY_1, 1);
+  nrf_gpio_pin_write(STP_STANDBY_2, 1);
   // Set the mode and the direction
   nrf_gpio_pin_write(STP2_MODE1, mode & 1);
   nrf_gpio_pin_write(STP2_MODE2, mode & 2);
@@ -194,7 +200,8 @@ void motor2_loop(uint32_t pulse_width, uint16_t steps, bool dir, uint8_t mode) {
 }
 
 void motor_powerdown() {
-  nrf_gpio_pin_write(STP_STANDBY, 0);
+  nrf_gpio_pin_write(STP_STANDBY_2, 0);
+  nrf_gpio_pin_write(STP_STANDBY_1, 0);
   nrf_gpio_pin_write(STP1_STCK, 0);
   nrf_gpio_pin_write(STP2_STCK, 0);
 }
@@ -219,19 +226,89 @@ void mpu_init(void) {
 #define PWR_CTRL_1 19
 #define PWR_CTRL_2 20
 
+void chain_detect_pin_handler_a(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
+  NRF_LOG_INFO("enterred interupt on %d, with action %d, with state %d", pin, action,nrf_gpio_pin_read(pin));
+  
+}
+
+
+void gpio_interrupt_init() {
+  nrf_gpio_cfg_input(MAGNETIC1, NRF_GPIO_PIN_PULLDOWN);
+  //nrf_gpio_cfg_input(MAGNETIC2, NRF_GPIO_PIN_PULLDOWN);
+
+
+  // Enable the two chain detect interupts
+  ret_code_t err_code;
+
+  err_code = nrf_drv_gpiote_init();
+  APP_ERROR_CHECK(err_code);
+
+  nrf_drv_gpiote_in_config_t in_config = GPIOTE_CONFIG_IN_SENSE_TOGGLE(true);
+  in_config.pull = NRF_GPIO_PIN_PULLUP;
+  in_config.sense = GPIO_PIN_CNF_SENSE_Low;
+
+  err_code = nrf_drv_gpiote_in_init(MAGNETIC1, &in_config, chain_detect_pin_handler_a);
+  //err_code = nrf_drv_gpiote_in_init(MAGNETIC2, &in_config, chain_detect_pin_handler_a);
+  
+  APP_ERROR_CHECK(err_code);
+
+  nrf_drv_gpiote_in_event_enable(MAGNETIC1, true);
+
+  //nrf_drv_gpiote_in_event_enable(MAGNETIC2, true);
+
+}
+
 int main(void) {
+
+  
 
   APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
   NRF_LOG_DEFAULT_BACKENDS_INIT();
 
   NRF_LOG_INFO("Testing custom PCB stage 3");
   NRF_LOG_FLUSH();
+  gpio_init();
+  nrf_gpio_pin_set(POWER_12V);
+
+  nrf_gpio_pin_set(POWER_3V3);
+  
+  nrf_delay_ms(10);
+  gpio_interrupt_init();
+ 
+
+  APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
+  NRF_LOG_DEFAULT_BACKENDS_INIT();
+
+  NRF_LOG_INFO("Testing custom PCB stage 3");
+  NRF_LOG_FLUSH();
+  nrf_gpio_cfg_output(STP_STANDBY_1);
+  nrf_gpio_cfg_output(STP_STANDBY_2);
+  nrf_gpio_pin_write(STP_STANDBY_1, 0);
+  nrf_gpio_pin_write(STP_STANDBY_2, 0);
+  gpio_interrupt_init();
+
+  
+  //while (1) {
+  nrf_delay_ms(1000);
+  NRF_LOG_INFO("interrupt me");
+  NRF_LOG_FLUSH();
+  //}
+  
+  nrf_drv_WS2812_init(17);
 
   gpio_init();
-  
 
   gpio_mpu_interrupt_init();
 
+  nrf_gpio_pin_set(POWER_12V);
+
+  nrf_gpio_pin_set(POWER_3V3);
+  nrf_delay_ms(10);
+
+  
+
+  
+  
   mpu_init();
   uint8_t chip_id;
   app_mpu_who_am_i(&chip_id);
@@ -247,84 +324,114 @@ int main(void) {
   app_mpu_read_int_source(&int_source);
   NRF_LOG_INFO("Had an interupt Interupt source:  0x%x", int_source);
   NRF_LOG_FLUSH();
+  
 
+  while (1) { 
   // Start execution.
-  nrf_gpio_pin_set(POWER_12V);
+    nrf_gpio_pin_set(POWER_12V);
 
-  nrf_gpio_pin_set(POWER_3V3);
-  nrf_delay_ms(10);
+    nrf_gpio_pin_set(POWER_3V3);
+    nrf_delay_ms(10);
 
-  nrf_drv_WS2812_init(17);
+    for (int i = 0; i < 1000; i++) {
+      nrf_gpio_pin_set(BUZZER);
+      nrf_delay_ms(50);
+      nrf_gpio_pin_clear(BUZZER);
+      nrf_delay_ms(10000);
+
+    }
+
+
+  /*
   NRF_LOG_INFO("Testing WS2812 LED");
-  NRF_LOG_FLUSH();
-
-  for (int i = 0; i < 3; i++) {
-    nrf_drv_WS2812_set_pixels_rgb(0, 0, 100);
-    nrf_drv_WS2812_show();
+    NRF_LOG_FLUSH();
     nrf_delay_ms(1000);
-    nrf_drv_WS2812_set_pixels_rgb(0, 100, 0);
-    nrf_drv_WS2812_show();
+
+  
+
+    // Start execution.
+    nrf_gpio_pin_set(POWER_12V);
+
+    nrf_gpio_pin_set(POWER_3V3);
+    nrf_delay_ms(10);
+
+    
+    NRF_LOG_INFO("Testing WS2812 LED");
+    NRF_LOG_FLUSH();
+
+    for (int i = 0; i < 3; i++) {
+      nrf_drv_WS2812_set_pixels_rgb(0, 0, 100);
+      nrf_drv_WS2812_show();
+      nrf_delay_ms(1000);
+      nrf_drv_WS2812_set_pixels_rgb(0, 100, 0);
+      nrf_drv_WS2812_show();
+      nrf_delay_ms(1000);
+      nrf_drv_WS2812_set_pixels_rgb(100, 0, 0);
+      nrf_drv_WS2812_show();
+      nrf_delay_ms(1000);
+    }
+
+    nrf_gpio_pin_clear(POWER_3V3);
+    nrf_gpio_pin_set(POWER_12V);
+    nrf_delay_ms(10);
+
+    NRF_LOG_INFO("Testing the BUZZER");
+    NRF_LOG_FLUSH();
+    for (int i = 0; i < 5; i++) {
+      nrf_gpio_pin_set(BUZZER);
+      nrf_delay_ms(50);
+      nrf_gpio_pin_clear(BUZZER);
+      nrf_delay_ms(150);
+
+    }
+    for (int i = 0; i < 2; i++) {
+      nrf_gpio_pin_set(BUZZER);
+      nrf_delay_ms(50);
+      nrf_gpio_pin_clear(BUZZER);
+      nrf_delay_ms(10000);
+
+    }
+    NRF_LOG_INFO("Testing Magnetic and MOTO Magnetic_1 for MOTO1, Magnetic_2 for MOTO2");
+    NRF_LOG_FLUSH();
     nrf_delay_ms(1000);
-    nrf_drv_WS2812_set_pixels_rgb(100, 0, 0);
-    nrf_drv_WS2812_show();
+    NRF_LOG_INFO("Keep magnetic_1 induction close to iron");
+    NRF_LOG_FLUSH();
+    while (!nrf_gpio_pin_read(MAGNETIC1)) {
+      nrf_delay_ms(100);
+    }
+    motor_init();
+    NRF_LOG_INFO("Magnetic_1 is %d moving MOTO 1", nrf_gpio_pin_read(MAGNETIC1));
+    NRF_LOG_FLUSH();
+    motor1_loop(PULSE_WIDTH_MS, NUM_PULSES, CW, HALF_STEP);
+
+    while (!nrf_gpio_pin_read(MAGNETIC2)) {
+      nrf_delay_ms(100);
+    }
     nrf_delay_ms(1000);
-  }
+    NRF_LOG_INFO("Magnetic_2 is %d moving MOTO 2", nrf_gpio_pin_read(MAGNETIC1));
+    NRF_LOG_FLUSH();
+    motor2_loop(PULSE_WIDTH_MS, NUM_PULSES, CW, HALF_STEP);
 
-  nrf_gpio_pin_clear(POWER_3V3);
-  nrf_gpio_pin_set(POWER_12V);
-  nrf_delay_ms(10);
+    NRF_LOG_INFO("Release stepper motor and turn off 12V");
+    NRF_LOG_FLUSH();
+    motor_powerdown();
+    nrf_gpio_pin_clear(POWER_12V);
 
-  NRF_LOG_INFO("Testing the BUZZER");
-  NRF_LOG_FLUSH();
-  for (int i = 0; i < 2; i++) {
-    nrf_gpio_pin_set(BUZZER);
-    nrf_delay_ms(50);
-    nrf_gpio_pin_clear(BUZZER);
-    nrf_delay_ms(1000);
-  }
-  NRF_LOG_INFO("Testing Magnetic and MOTO Magnetic_1 for MOTO1, Magnetic_2 for MOTO2");
-  NRF_LOG_FLUSH();
-  nrf_delay_ms(1000);
-  NRF_LOG_INFO("Keep magnetic_1 induction close to iron");
-  NRF_LOG_FLUSH();
-  while (!nrf_gpio_pin_read(MAGNETIC1)) {
-    nrf_delay_ms(100);
-  }
-  motor_init();
-  NRF_LOG_INFO("Magnetic_1 is %d moving MOTO 1", nrf_gpio_pin_read(MAGNETIC1));
-  NRF_LOG_FLUSH();
-  motor1_loop(PULSE_WIDTH_MS, NUM_PULSES, CW, HALF_STEP);
+    nrf_delay_ms(3000);
 
-  while (!nrf_gpio_pin_read(MAGNETIC2)) {
-    nrf_delay_ms(100);
-  }
-  nrf_delay_ms(1000);
-  NRF_LOG_INFO("Magnetic_2 is %d moving MOTO 2", nrf_gpio_pin_read(MAGNETIC1));
-  NRF_LOG_FLUSH();
-  motor2_loop(PULSE_WIDTH_MS, NUM_PULSES, CW, HALF_STEP);
+    uint32_t err_code = NRF_LOG_INIT(NULL);
+    APP_ERROR_CHECK(err_code);
 
-  NRF_LOG_INFO("Release stepper motor and turn off 12V");
-  NRF_LOG_FLUSH();
-  motor_powerdown();
-  //nrf_gpio_pin_clear(POWER_12V);
+    nrf_saadc_channel_config_t channel_config0 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN0);
+    nrf_saadc_channel_config_t channel_config1 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN1);
+    nrf_saadc_channel_config_t channel_config2 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN2);
 
-  nrf_delay_ms(3000);
+    NRF_LOG_INFO("Set the ADC for AIN0, AIN1 and AIN2");
+    NRF_LOG_FLUSH();
 
-  uint32_t err_code = NRF_LOG_INIT(NULL);
-  APP_ERROR_CHECK(err_code);
-
-  nrf_saadc_channel_config_t channel_config0 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN0);
-  nrf_saadc_channel_config_t channel_config1 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN1);
-  nrf_saadc_channel_config_t channel_config2 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN2);
-
-  NRF_LOG_INFO("Set the ADC for AIN0, AIN1 and AIN2");
-  NRF_LOG_FLUSH();
-
-  static nrf_saadc_value_t sample1;
-  static nrf_saadc_value_t sample2;
-  static nrf_saadc_value_t sample3;
-
-  while (1) {
+    static nrf_saadc_value_t sample1;
+    static nrf_saadc_value_t sample2;
+    static nrf_saadc_value_t sample3;
 
     //Reading saadc channel 0
     err_code = nrf_drv_saadc_init(NULL, saadc_callback);
@@ -371,7 +478,10 @@ int main(void) {
     nrf_drv_saadc_uninit();
 
     nrf_delay_ms(1000);
+    */
   }
+  
+  
 }
 
 /** @} */

@@ -83,4 +83,8 @@ ble_advertising_t * ble_adv_instance_ptr_get(void);
 
 extern uint16_t  m_conn_handle;
 
+/**@brief Function for initializing BLE pairing module without NFC bonding.
+ */
+void ble_pairing_init(void);
+
 #endif //BLE_CONTROL_H__

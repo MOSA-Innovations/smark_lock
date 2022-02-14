@@ -1,15 +1,9 @@
-
-
- /* MPU-9150 Register Map
-  * Revision: 3.0
-  * Release Date: 10/24/2011
-  *
-  * This code is not extensively tested and only 
-  * meant as a simple explanation and for inspiration. 
-  * THE LIST OF REGISTERS MIGHT NOT BE ACCURATE
-  * NO WARRANTY of ANY KIND is provided. 
+/*
+  * The library is not extensively tested and only
+  * meant as a simple explanation and for inspiration.
+  * NO WARRANTY of ANY KIND is provided.
   */
-  
+
 #ifndef MPU9150_REG_MAP_H
 #define MPU9150_REG_MAP_H
 

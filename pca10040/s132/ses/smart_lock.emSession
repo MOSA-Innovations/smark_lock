@@ -3,8 +3,7 @@
  <Bookmarks/>
  <Breakpoints groups="Breakpoints" active_group="Breakpoints">
   <BreakpointListItem trigger="" line="216" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="2" filename="C:/nRF5_SDK_17.0.2/components/libraries/fds/fds.c" useHWbreakpoint="false"/>
-  <BreakpointListItem trigger="" line="35" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="2" filename="../../../main.c" useHWbreakpoint="false"/>
-  <Exceptions set="MemManage;UsageFault_Coprocessor;UsageFault_CheckingError;UsageFault_StateError;BusFault;ExceptionEntryReturnFault;HardFault"/>
+  <BreakpointListItem trigger="" line="237" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="2" filename="../../../smart_lock.c" useHWbreakpoint="false"/>
  </Breakpoints>
  <ExecutionProfileWindow/>
  <FrameBufferWindow>
@@ -26,16 +25,12 @@
   <ProjectSessionItem path="smart_lock"/>
   <ProjectSessionItem path="smart_lock;smart_lock"/>
   <ProjectSessionItem path="smart_lock;smart_lock;Application"/>
+  <ProjectSessionItem path="smart_lock;smart_lock;Board Support"/>
   <ProjectSessionItem path="smart_lock;smart_lock;None"/>
   <ProjectSessionItem path="smart_lock;smart_lock;nRF_BLE"/>
-  <ProjectSessionItem path="smart_lock;smart_lock;nRF_ble_link_ctx_manager"/>
-  <ProjectSessionItem path="smart_lock;smart_lock;nrf_cc310"/>
-  <ProjectSessionItem path="smart_lock;smart_lock;nRF_Crypto"/>
   <ProjectSessionItem path="smart_lock;smart_lock;nRF_Drivers"/>
   <ProjectSessionItem path="smart_lock;smart_lock;nRF_Libraries"/>
-  <ProjectSessionItem path="smart_lock;smart_lock;nRF_Segger_RTT"/>
-  <ProjectSessionItem path="smart_lock;smart_lock;nRF_SoftDevice"/>
-  <ProjectSessionItem path="smart_lock;smart_lock;Segger Startup Files"/>
+  <ProjectSessionItem path="smart_lock;smart_lock;nRF_NFC"/>
  </Project>
  <Register1>
   <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;CPU/r0;CPU/r1;CPU/r2;CPU/r3;CPU/r4;CPU/r5;CPU/r6;CPU/r7;CPU/r8;CPU/r9;CPU/r10;CPU/r11;CPU/r12;CPU/sp(r13);CPU/lr(r14);CPU/pc(r15);CPU/xpsr;CPU/msp;CPU/psp;CPU/cfbp;CPU/internal" binaryNodes="" asciiNodes="" openNodes="CPU - Current Context" name="smart_lock" decimalNodes="" octalNodes="" unsignedNodes=""/>
@@ -70,21 +65,7 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="34" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../main.c" selected="0" top="22" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="23" y="11626" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../config/sdk_config.h" selected="0" top="11617" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="69" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="C:/nRF5_SDK_17.0.2/modules/nrfx/mdk/ses_startup_nrf52.s" selected="1" top="62" codecName=""/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="244" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../smart_lock.c" selected="0" top="232" codecName=""/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="62" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../peer_control.c" selected="0" top="50" codecName=""/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="328" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="C:/nRF5_SDK_17.0.2/components/ble/peer_manager/peer_manager.c" selected="0" top="316" codecName=""/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="376" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="C:/nRF5_SDK_17.0.2/components/ble/peer_manager/peer_data_storage.c" selected="0" top="365" codecName=""/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="216" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="C:/nRF5_SDK_17.0.2/components/libraries/fds/fds.c" selected="0" top="203" codecName=""/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="99" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="C:/nRF5_SDK_17.0.2/components/libraries/util/app_error_weak.c" selected="0" top="87" codecName=""/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="58" y="27" useTextEdit="1" openedFrom="C:/GoVelo/repo/smart_lock/smart_lock.c" useBinaryEdit="0" left="0" path="../../../audio_control.c" selected="0" top="17" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="28" y="33" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../lock_mech_control.c" selected="0" top="28" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="260" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../ble_control.c" selected="0" top="238" codecName=""/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="158" useTextEdit="1" openedFrom="C:/GoVelo/repo/smart_lock/ble_control.c" useBinaryEdit="0" left="0" path="C:/nRF5_SDK_17.0.2/components/libraries/util/sdk_errors.h" selected="0" top="146" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="C:/nRF5_SDK_17.0.2/modules/nrfx/mdk/ses_startup_nrf_common.s" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="188" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="thumb_crt0.s" selected="0" top="175" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../nrf_drv_WS2812.c" selected="1" top="60" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="smart_lock" fileDialogDefaultFilter="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.hxx" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3711"/>
+ <ARMCrossStudioWindow activeProject="smart_lock" fileDialogDefaultFilter="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.hxx" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/pavlos/workspace/projects/mosa/github/smark_lock" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

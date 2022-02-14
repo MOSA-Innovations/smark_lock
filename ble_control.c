@@ -38,6 +38,7 @@
 #include "nrf_ble_gatt.h"
 #include "nrf_ble_qwr.h"
 
+
 #define NRF_LOG_MODULE_NAME BLE_CONTROL
 #include "nrf_log.h"
 NRF_LOG_MODULE_REGISTER();
@@ -57,6 +58,11 @@ NRF_LOG_MODULE_REGISTER();
 
 #define APP_ADV_INTERVAL                300                                         /**< The advertising interval (in units of 0.625 ms. This value corresponds to 187.5 ms). */
 #define APP_ADV_DURATION                18000                                       /**< The advertising duration (180 seconds) in units of 10 milliseconds. */
+
+#define output_power_seclection 4
+
+#define DEBUGMODE
+
 
 NRF_BLE_GATT_DEF(m_gatt);                                                           /**< GATT module instance. */
 NRF_BLE_QWR_DEF(m_qwr);                                                             /**< Context for the Queued Write module.*/
@@ -90,6 +96,10 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
             APP_ERROR_CHECK(err_code);
             m_conn_handle = BLE_CONN_HANDLE_INVALID;
             pm_peers_delete();
+            #ifdef DEBUGMODE  
+            ble_pairing_init();
+            #endif
+
             break;
 
         case BLE_GAP_EVT_CONNECTED:
@@ -257,6 +267,7 @@ void ble_stack_init(void)
     err_code = nrf_sdh_ble_default_cfg_set(APP_BLE_CONN_CFG_TAG, &ram_start);
     APP_ERROR_CHECK(err_code);
 
+
     // Enable BLE stack.
     err_code = nrf_sdh_ble_enable(&ram_start);
     APP_ERROR_CHECK(err_code);
@@ -279,6 +290,8 @@ void advertising_init(void)
     m_advdata.flags                   = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
     m_advdata.uuids_complete.uuid_cnt = sizeof(m_adv_uuids) / sizeof(m_adv_uuids[0]);
     m_advdata.uuids_complete.p_uuids  = m_adv_uuids;
+
+
 
     init.advdata = m_advdata;
 
@@ -326,6 +339,7 @@ void gap_params_init(void)
     ble_gap_conn_params_t gap_conn_params;
 
     BLE_GAP_CONN_SEC_MODE_SET_OPEN(&m_sec_mode);
+    //BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&m_sec_mode);
 
     err_code = sd_ble_gap_appearance_set(BLE_APPEARANCE_UNKNOWN);
     APP_ERROR_CHECK(err_code);
@@ -348,7 +362,7 @@ void gatt_evt_handler(nrf_ble_gatt_t * p_gatt, nrf_ble_gatt_evt_t const * p_evt)
     if ((m_conn_handle == p_evt->conn_handle) && (p_evt->evt_id == NRF_BLE_GATT_EVT_ATT_MTU_UPDATED))
     {
         m_smart_lock_gatt_service_max_data_len = p_evt->params.att_mtu_effective - OPCODE_LENGTH - HANDLE_LENGTH;
-        NRF_LOG_INFO("Data len is set to 0x%X(%d)", m_smart_lock_gatt_service_max_data_len, m_smart_lock_gatt_service_max_data_len);
+        //NRF_LOG_INFO("Data len is set to 0x%X(%d)", m_smart_lock_gatt_service_max_data_len, m_smart_lock_gatt_service_max_data_len);
     }
     NRF_LOG_INFO("ATT MTU exchange completed. central 0x%x peripheral 0x%x",
                   p_gatt->att_mtu_desired_central,
@@ -397,4 +411,15 @@ void conn_params_init(void)
     err_code = ble_conn_params_init(&cp_init);
     APP_ERROR_CHECK(err_code);
 }
+
+/**@brief Function for initializing BLE pairing module without NFC bonding.
+ */
+void ble_pairing_init()
+{
+    ble_advertising_t * const p_advertising = ble_adv_instance_ptr_get();
+
+    ret_code_t err_code = ble_advertising_start(p_advertising, BLE_ADV_MODE_FAST);
+    APP_ERROR_CHECK(err_code);
+}
+
 //EOF

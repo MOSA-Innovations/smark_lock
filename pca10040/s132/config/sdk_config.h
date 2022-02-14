@@ -2804,65 +2804,58 @@
 
 // </e>
 
-// <e> NRFX_PWM_ENABLED - nrfx_pwm - PWM peripheral driver
+// <e> NRFX_PWM_ENABLED - nrfx_pwm - PWM PWM peripheral driver
 //==========================================================
 #ifndef NRFX_PWM_ENABLED
-#define NRFX_PWM_ENABLED 0
+#define NRFX_PWM_ENABLED 1
 #endif
 // <q> NRFX_PWM0_ENABLED  - Enable PWM0 instance
  
 
 #ifndef NRFX_PWM0_ENABLED
-#define NRFX_PWM0_ENABLED 0
+#define NRFX_PWM0_ENABLED 1
 #endif
 
 // <q> NRFX_PWM1_ENABLED  - Enable PWM1 instance
  
 
 #ifndef NRFX_PWM1_ENABLED
-#define NRFX_PWM1_ENABLED 0
+#define NRFX_PWM1_ENABLED 1
 #endif
 
 // <q> NRFX_PWM2_ENABLED  - Enable PWM2 instance
  
 
 #ifndef NRFX_PWM2_ENABLED
-#define NRFX_PWM2_ENABLED 0
-#endif
-
-// <q> NRFX_PWM3_ENABLED  - Enable PWM3 instance
- 
-
-#ifndef NRFX_PWM3_ENABLED
-#define NRFX_PWM3_ENABLED 0
+#define NRFX_PWM2_ENABLED 1
 #endif
 
 // <o> NRFX_PWM_DEFAULT_CONFIG_OUT0_PIN - Out0 pin  <0-31> 
 
 
 #ifndef NRFX_PWM_DEFAULT_CONFIG_OUT0_PIN
-#define NRFX_PWM_DEFAULT_CONFIG_OUT0_PIN 31
+#define NRFX_PWM_DEFAULT_CONFIG_OUT0_PIN 17
 #endif
 
 // <o> NRFX_PWM_DEFAULT_CONFIG_OUT1_PIN - Out1 pin  <0-31> 
 
 
 #ifndef NRFX_PWM_DEFAULT_CONFIG_OUT1_PIN
-#define NRFX_PWM_DEFAULT_CONFIG_OUT1_PIN 31
+#define NRFX_PWM_DEFAULT_CONFIG_OUT1_PIN 17
 #endif
 
 // <o> NRFX_PWM_DEFAULT_CONFIG_OUT2_PIN - Out2 pin  <0-31> 
 
 
 #ifndef NRFX_PWM_DEFAULT_CONFIG_OUT2_PIN
-#define NRFX_PWM_DEFAULT_CONFIG_OUT2_PIN 31
+#define NRFX_PWM_DEFAULT_CONFIG_OUT2_PIN 17
 #endif
 
 // <o> NRFX_PWM_DEFAULT_CONFIG_OUT3_PIN - Out3 pin  <0-31> 
 
 
 #ifndef NRFX_PWM_DEFAULT_CONFIG_OUT3_PIN
-#define NRFX_PWM_DEFAULT_CONFIG_OUT3_PIN 31
+#define NRFX_PWM_DEFAULT_CONFIG_OUT3_PIN 17
 #endif
 
 // <o> NRFX_PWM_DEFAULT_CONFIG_BASE_CLOCK  - Base clock
@@ -3005,7 +2998,6 @@
 #ifndef NRFX_PWM_NRF52_ANOMALY_109_EGU_INSTANCE
 #define NRFX_PWM_NRF52_ANOMALY_109_EGU_INSTANCE 5
 #endif
-
 // </e>
 
 // </e>
@@ -5100,11 +5092,11 @@
 #ifndef PPI_ENABLED
 #define PPI_ENABLED 0
 #endif
-
+/*
 // <e> PWM_ENABLED - nrf_drv_pwm - PWM peripheral driver - legacy layer
 //==========================================================
 #ifndef PWM_ENABLED
-#define PWM_ENABLED 0
+#define PWM_ENABLED 1
 #endif
 // <o> PWM_DEFAULT_CONFIG_OUT0_PIN - Out0 pin  <0-31> 
 
@@ -5204,21 +5196,21 @@
  
 
 #ifndef PWM0_ENABLED
-#define PWM0_ENABLED 0
+#define PWM0_ENABLED 1
 #endif
 
 // <q> PWM1_ENABLED  - Enable PWM1 instance
  
 
 #ifndef PWM1_ENABLED
-#define PWM1_ENABLED 0
+#define PWM1_ENABLED 1
 #endif
 
 // <q> PWM2_ENABLED  - Enable PWM2 instance
  
 
 #ifndef PWM2_ENABLED
-#define PWM2_ENABLED 0
+#define PWM2_ENABLED 1
 #endif
 
 // <e> PWM_NRF52_ANOMALY_109_WORKAROUND_ENABLED - Enables nRF52 Anomaly 109 workaround for PWM.
@@ -5246,7 +5238,7 @@
 #ifndef PWM_NRF52_ANOMALY_109_EGU_INSTANCE
 #define PWM_NRF52_ANOMALY_109_EGU_INSTANCE 5
 #endif
-
+*/
 // </e>
 
 // </e>
@@ -7001,7 +6993,7 @@
 #ifndef HARDFAULT_HANDLER_ENABLED
 #define HARDFAULT_HANDLER_ENABLED 0
 #endif
-
+/*
 // <e> HCI_MEM_POOL_ENABLED - hci_mem_pool - memory pool implementation used by HCI
 //==========================================================
 #ifndef HCI_MEM_POOL_ENABLED
@@ -7092,7 +7084,7 @@
 #ifndef HCI_MAX_PACKET_SIZE_IN_BITS
 #define HCI_MAX_PACKET_SIZE_IN_BITS 8000
 #endif
-
+*/
 // </e>
 
 // <q> LED_SOFTBLINK_ENABLED  - led_softblink - led_softblink module
@@ -7900,7 +7892,7 @@
 // <e> NRF_LOG_BACKEND_UART_ENABLED - nrf_log_backend_uart - Log UART backend
 //==========================================================
 #ifndef NRF_LOG_BACKEND_UART_ENABLED
-#define NRF_LOG_BACKEND_UART_ENABLED 0
+#define NRF_LOG_BACKEND_UART_ENABLED 1
 #endif
 // <o> NRF_LOG_BACKEND_UART_TX_PIN - UART TX pin 
 #ifndef NRF_LOG_BACKEND_UART_TX_PIN

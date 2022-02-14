@@ -23,20 +23,29 @@
 #ifndef LED_CONTROL_H__
 #define LED_CONTROL_H__
 
+
 /**@brief Function for initializing device leds.
  */
 void led_init(void);
+
+/**@brief Function for deinitializing device leds.
+ */
+void led_deinit(void);
 
 /**@brief Function to pulse LEDs.
  */
 void led_pulse(void);
 
-/**@brief LED event on lock.
- */
-void led_lock_event(void);
-
 /**@brief LED event on unlock
  */
 void led_unlock_event(void);
+
+/**@brief LED event on admin mode
+ */
+void led_admin_event(void);
+
+/**@brief LED event on pairing
+ */
+void led_pairing_event(void);
 
 #endif // LED_CONTROL_H__

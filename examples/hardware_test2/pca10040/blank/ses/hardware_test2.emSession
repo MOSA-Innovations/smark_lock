@@ -38,10 +38,10 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="60" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../main.c" selected="1" top="114" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="23" y="230" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../main.c" selected="1" top="225" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="30" y="59" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../nrf_drv_WS2812.c" selected="0" top="60" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="6" y="334" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../config/sdk_config.h" selected="0" top="320" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="3" y="20" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../nrf_drv_WS2812.h" selected="0" top="12" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="hardware_test2" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Release" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/pavlos/workspace/projects/mosa/github/hardware_test2" debugSearchPath="" autoConnectCapabilities="3199"/>
+ <ARMCrossStudioWindow activeProject="hardware_test2" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Release" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="/home/pavlos/workspace/projects/mosa/github/hardware_test2" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

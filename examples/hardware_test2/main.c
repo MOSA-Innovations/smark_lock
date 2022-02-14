@@ -229,6 +229,22 @@ int main(void) {
     nrf_drv_saadc_uninit();
 
     nrf_delay_ms(1000);
+
+    NRF_LOG_INFO("Set the STSPIN820 Step ClockWise");
+  NRF_LOG_FLUSH();
+
+  NRF_LOG_FLUSH();
+  motor_loop(PULSE_WIDTH_MS, NUM_PULSES, CW, HALF_STEP);
+
+  nrf_delay_ms(3000);
+
+  NRF_LOG_INFO("Moving counterclockwise.");
+  NRF_LOG_FLUSH();
+  motor_loop(PULSE_WIDTH_MS, NUM_PULSES, CCW, HALF_STEP);
+
+  NRF_LOG_INFO("Release stepper motor.");
+  NRF_LOG_FLUSH();
+  motor_powerdown();
   }
 }
 

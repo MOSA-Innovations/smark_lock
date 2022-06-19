@@ -29,8 +29,8 @@
 #include "ble_advertising.h"
 
 /**@brief Function for initializing the advertising functionality. */
-void advertising_init(void);
-
+static void advertising_init(void);
+void new_advertising_init(void);
 
 /**@brief   Function for initializing the BLE stack.
  *
@@ -87,4 +87,6 @@ extern uint16_t  m_conn_handle;
  */
 void ble_pairing_init(void);
 
+
+void advertising_start(void);
 #endif //BLE_CONTROL_H__

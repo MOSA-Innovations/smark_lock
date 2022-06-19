@@ -137,6 +137,32 @@
 #define NRF_RADIO_ANTENNA_COUNT 12
 #endif
 
+// <o> DTM_RADIO_IRQ_PRIORITY - RADIO interrupt priority 
+#ifndef DTM_RADIO_IRQ_PRIORITY
+#define DTM_RADIO_IRQ_PRIORITY 2
+#endif
+
+// <o> DTM_TIMER_IRQ_PRIORITY - DTM timer interrupt priority 
+#ifndef DTM_TIMER_IRQ_PRIORITY
+#define DTM_TIMER_IRQ_PRIORITY 3
+#endif
+
+// <o> DTM_ANOMALY_172_TIMER_IRQ_PRIORITY - DTM anomaly 172 timer interrupt priority 
+#ifndef DTM_ANOMALY_172_TIMER_IRQ_PRIORITY
+#define DTM_ANOMALY_172_TIMER_IRQ_PRIORITY 2
+#endif
+
+// <o> NRF_DTM_TIMER_INSTANCE  - DTM TIMER instance
+ 
+// <0=> TIMER0 
+// <2=> TIMER2 
+// <3=> TIMER3 
+// <4=> TIMER4 
+
+#ifndef NRF_DTM_TIMER_INSTANCE
+#define NRF_DTM_TIMER_INSTANCE 0
+#endif
+
 // </e>
 
 // <q> BLE_RACP_ENABLED  - ble_racp - Record Access Control Point library
@@ -196,7 +222,7 @@
 // <e> PEER_MANAGER_ENABLED - peer_manager - Peer Manager
 //==========================================================
 #ifndef PEER_MANAGER_ENABLED
-#define PEER_MANAGER_ENABLED 1
+#define PEER_MANAGER_ENABLED 0
 #endif
 // <o> PM_MAX_REGISTRANTS - Number of event handlers that can be registered. 
 #ifndef PM_MAX_REGISTRANTS
@@ -216,7 +242,7 @@
 // <i> Enable/disable central-specific Peer Manager functionality.
 
 #ifndef PM_CENTRAL_ENABLED
-#define PM_CENTRAL_ENABLED 0
+#define PM_CENTRAL_ENABLED 1
 #endif
 
 // <q> PM_SERVICE_CHANGED_ENABLED  - Enable/disable the service changed management for GATT server in Peer Manager.
@@ -244,7 +270,7 @@
 // <i> If set to true, you need to call nrf_ble_lesc_request_handler() in the main loop to respond to LESC-related BLE events. If LESC support is not required, set this to false to save code space.
 
 #ifndef PM_LESC_ENABLED
-#define PM_LESC_ENABLED 1
+#define PM_LESC_ENABLED 0
 #endif
 
 // <e> PM_RA_PROTECTION_ENABLED - Enable/disable protection against repeated pairing attempts in Peer Manager.
@@ -2804,7 +2830,7 @@
 
 // </e>
 
-// <e> NRFX_PWM_ENABLED - nrfx_pwm - PWM PWM peripheral driver
+// <e> NRFX_PWM_ENABLED - nrfx_pwm - PWM peripheral driver
 //==========================================================
 #ifndef NRFX_PWM_ENABLED
 #define NRFX_PWM_ENABLED 1
@@ -10901,7 +10927,7 @@
  
 
 #ifndef NFC_AC_REC_ENABLED
-#define NFC_AC_REC_ENABLED 1
+#define NFC_AC_REC_ENABLED 0
 #endif
 
 // <q> NFC_AC_REC_PARSER_ENABLED  - nfc_ac_rec_parser - Alternative Carrier record parser
@@ -10914,7 +10940,7 @@
 // <e> NFC_BLE_OOB_ADVDATA_ENABLED - nfc_ble_oob_advdata - AD data for OOB pairing encoder
 //==========================================================
 #ifndef NFC_BLE_OOB_ADVDATA_ENABLED
-#define NFC_BLE_OOB_ADVDATA_ENABLED 1
+#define NFC_BLE_OOB_ADVDATA_ENABLED 0
 #endif
 // <o> ADVANCED_ADVDATA_SUPPORT  - Non-mandatory AD types for BLE OOB pairing are encoded inside the NDEF message (e.g. service UUIDs)
  
@@ -10937,7 +10963,7 @@
 // <e> NFC_BLE_PAIR_LIB_ENABLED - nfc_ble_pair_lib - Library parameters
 //==========================================================
 #ifndef NFC_BLE_PAIR_LIB_ENABLED
-#define NFC_BLE_PAIR_LIB_ENABLED 1
+#define NFC_BLE_PAIR_LIB_ENABLED 0
 #endif
 // <e> NFC_BLE_PAIR_LIB_LOG_ENABLED - Enables logging in the module.
 //==========================================================
@@ -11073,35 +11099,35 @@
  
 
 #ifndef NFC_BLE_PAIR_MSG_ENABLED
-#define NFC_BLE_PAIR_MSG_ENABLED 1
+#define NFC_BLE_PAIR_MSG_ENABLED 0
 #endif
 
 // <q> NFC_CH_COMMON_ENABLED  - nfc_ble_pair_common - OOB pairing common data
  
 
 #ifndef NFC_CH_COMMON_ENABLED
-#define NFC_CH_COMMON_ENABLED 1
+#define NFC_CH_COMMON_ENABLED 0
 #endif
 
 // <q> NFC_EP_OOB_REC_ENABLED  - nfc_ep_oob_rec - EP record for BLE pairing encoder
  
 
 #ifndef NFC_EP_OOB_REC_ENABLED
-#define NFC_EP_OOB_REC_ENABLED 1
+#define NFC_EP_OOB_REC_ENABLED 0
 #endif
 
 // <q> NFC_HS_REC_ENABLED  - nfc_hs_rec - Handover Select NDEF record encoder
  
 
 #ifndef NFC_HS_REC_ENABLED
-#define NFC_HS_REC_ENABLED 1
+#define NFC_HS_REC_ENABLED 0
 #endif
 
 // <q> NFC_LE_OOB_REC_ENABLED  - nfc_le_oob_rec - LE record for BLE pairing encoder
  
 
 #ifndef NFC_LE_OOB_REC_ENABLED
-#define NFC_LE_OOB_REC_ENABLED 1
+#define NFC_LE_OOB_REC_ENABLED 0
 #endif
 
 // <q> NFC_LE_OOB_REC_PARSER_ENABLED  - nfc_le_oob_rec_parser - LE record parser
@@ -11236,7 +11262,7 @@
  
 
 #ifndef NFC_NDEF_TEXT_RECORD_ENABLED
-#define NFC_NDEF_TEXT_RECORD_ENABLED 0
+#define NFC_NDEF_TEXT_RECORD_ENABLED 1
 #endif
 
 // <q> NFC_NDEF_URI_MSG_ENABLED  - nfc_uri_msg - Encoding data for NDEF message with URI record for NFC Tag

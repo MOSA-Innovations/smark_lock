@@ -62,11 +62,10 @@
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="34" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../main.c" selected="0" top="0" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="21" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../smart_lock.c" selected="0" top="24" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="27" y="49" useTextEdit="1" openedFrom="C:/GoVelo/repo/smart_lock/smart_lock.c" useBinaryEdit="0" left="0" path="../../../smart_lock.h" selected="0" top="47" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="34" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../lock_mech_control.h" selected="0" top="27" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="46" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../lock_mech_control.c" selected="0" top="32" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="34" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../lock_mech_control.h" selected="0" top="27" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="1" y="46" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../lock_mech_control.c" selected="0" top="32" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="20" y="26" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../security.h" selected="0" top="22" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="21" y="22" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../security.c" selected="0" top="7" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="9" y="54" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../../../../../nRFSDK1702/components/libraries/ecc/ecc.c" selected="1" top="30" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="21" y="22" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../security.c" selected="1" top="34" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="smart_lock" fileDialogDefaultFilter="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.hxx" autoConnectTarget="J-Link" buildConfiguration="Release" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/GoVelo/repo/smart_lock" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>

@@ -44,4 +44,6 @@ void audio_beep_lock_fail_event(void);
  */
 void audio_beep_unlock_fail_event(void);
 
+
+
 #endif // AUDIO_CONTROL_H__

@@ -85,7 +85,11 @@
       <file file_name="$(nRF_SDK_ROOT)/integration/nrfx/legacy/nrf_drv_clock.c" />
       <file file_name="$(nRF_SDK_ROOT)/integration/nrfx/legacy/nrf_drv_rng.c" />
       <file file_name="$(nRF_SDK_ROOT)/integration/nrfx/legacy/nrf_drv_uart.c" />
+      <file file_name="$(nRF_SDK_ROOT)/integration/nrfx/legacy/nrf_drv_twi.c" />
+      <file file_name="$(nRF_SDK_ROOT)/modules/nrfx/drivers/src/nrfx_twi.c" />
+      <file file_name="$(nRF_SDK_ROOT)/modules/nrfx/drivers/src/nrfx_twim.c" />
       <file file_name="$(nRF_SDK_ROOT)/modules/nrfx/soc/nrfx_atomic.c" />
+      <file file_name="$(nRF_SDK_ROOT)/modules/nrfx/drivers/src/nrfx_pwm.c" />
       <file file_name="$(nRF_SDK_ROOT)/modules/nrfx/drivers/src/nrfx_clock.c" />
       <file file_name="$(nRF_SDK_ROOT)/modules/nrfx/drivers/src/nrfx_gpiote.c" />
       <file file_name="$(nRF_SDK_ROOT)/modules/nrfx/drivers/src/nrfx_nfct.c" />
@@ -170,6 +174,14 @@
       <file file_name="../../../smart_lock_gatt_service.h" />
       <file file_name="../../../audio_control.c" />
       <file file_name="../../../audio_control.h" />
+      <file file_name="../../../hardware.h" />
+      <file file_name="../../../nrf_drv_WS2812.c" />
+      <file file_name="../../../nrf_drv_WS2812.h" />
+      <file file_name="../../../mpu60x0_register_map.h" />
+      <file file_name="../../../nrf_drv_mpu.c" />
+      <file file_name="../../../nrf_drv_mpu.h" />
+      <file file_name="../../../mpu_control.c" />
+      <file file_name="../../../mpu_control.h" />
     </folder>
     <folder Name="nRF_micro-ecc">
       <file file_name="$(nRF_SDK_ROOT)/external/micro-ecc/nrf52hf_armgcc/armgcc/micro_ecc_lib_nrf52.a" />

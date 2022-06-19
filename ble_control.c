@@ -38,11 +38,14 @@
 #include "nrf_ble_gatt.h"
 #include "nrf_ble_qwr.h"
 
+#include "nfc_control.h"
+
 
 #define NRF_LOG_MODULE_NAME BLE_CONTROL
 #include "nrf_log.h"
 NRF_LOG_MODULE_REGISTER();
 
+#define DEVICE_NAME                     "Smartlock"      
 
 #define MIN_CONN_INTERVAL               MSEC_TO_UNITS(100, UNIT_1_25_MS)            /**< Minimum acceptable connection interval (0.1 seconds). */
 #define MAX_CONN_INTERVAL               MSEC_TO_UNITS(200, UNIT_1_25_MS)            /**< Maximum acceptable connection interval (0.2 second). */
@@ -62,6 +65,8 @@ NRF_LOG_MODULE_REGISTER();
 #define output_power_seclection 4
 
 #define DEBUGMODE
+
+static bool is_ble_advertising = false;
 
 
 NRF_BLE_GATT_DEF(m_gatt);                                                           /**< GATT module instance. */
@@ -95,10 +100,8 @@ static void ble_evt_handler(ble_evt_t const * p_ble_evt, void * p_context)
             err_code = bsp_indication_set(BSP_INDICATE_IDLE);
             APP_ERROR_CHECK(err_code);
             m_conn_handle = BLE_CONN_HANDLE_INVALID;
-            pm_peers_delete();
-            #ifdef DEBUGMODE  
-            ble_pairing_init();
-            #endif
+            is_ble_advertising = false;
+            //pm_peers_delete();
 
             break;
 
@@ -235,6 +238,7 @@ static void on_adv_evt(ble_adv_evt_t ble_adv_evt)
         case BLE_ADV_EVT_IDLE:
             NRF_LOG_INFO("Advertising stopped.");
             err_code = bsp_indication_set(BSP_INDICATE_IDLE);
+            is_ble_advertising = false;
             APP_ERROR_CHECK(err_code);
             break;
 
@@ -277,7 +281,7 @@ void ble_stack_init(void)
 }
 
 
-void advertising_init(void)
+static void advertising_init(void)
 {
     ret_code_t err_code;
     ble_advertising_init_t init;
@@ -307,6 +311,12 @@ void advertising_init(void)
     APP_ERROR_CHECK(err_code);
 
     ble_advertising_conn_cfg_tag_set(&m_advertising, APP_BLE_CONN_CFG_TAG);
+}
+
+void new_advertising_init(void)
+
+{
+advertising_init();
 }
 
 
@@ -341,7 +351,13 @@ void gap_params_init(void)
     BLE_GAP_CONN_SEC_MODE_SET_OPEN(&m_sec_mode);
     //BLE_GAP_CONN_SEC_MODE_SET_NO_ACCESS(&m_sec_mode);
 
-    err_code = sd_ble_gap_appearance_set(BLE_APPEARANCE_UNKNOWN);
+
+
+    //err_code = sd_ble_gap_appearance_set(BLE_APPEARANCE_UNKNOWN);
+    //APP_ERROR_CHECK(err_code);
+
+    err_code = sd_ble_gap_device_name_set(&m_sec_mode,(const uint8_t *) DEVICE_NAME,
+                                          strlen(DEVICE_NAME));
     APP_ERROR_CHECK(err_code);
 
     memset(&gap_conn_params, 0, sizeof(gap_conn_params));
@@ -414,12 +430,24 @@ void conn_params_init(void)
 
 /**@brief Function for initializing BLE pairing module without NFC bonding.
  */
-void ble_pairing_init()
+void advertising_start()
 {
     ble_advertising_t * const p_advertising = ble_adv_instance_ptr_get();
 
     ret_code_t err_code = ble_advertising_start(p_advertising, BLE_ADV_MODE_FAST);
     APP_ERROR_CHECK(err_code);
 }
+
+
+
+void ble_run(void)
+{
+    if (is_nfc_event_field_on() && !is_ble_advertising){
+        NRF_LOG_INFO("new nfc event advertising_start");
+        is_ble_advertising = true;
+        advertising_start();
+    }
+}
+
 
 //EOF

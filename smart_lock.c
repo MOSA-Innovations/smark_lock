@@ -42,6 +42,8 @@
 #include "smart_lock_gatt_service.h"
 #include "timers_control.h"
 
+#include "nfc_control.h"
+
 //#define DEBUGMODE
 
 /**@brief Function for resetting the smart lock.
@@ -274,6 +276,7 @@ void smart_lock_init(void) {
     nrf_delay_ms(200);
   }
   
+  
   lock_mech_status = lock_mech_init();
 
   buttons_init();
@@ -281,20 +284,33 @@ void smart_lock_init(void) {
   power_management_init();
   mpu_init();
 
+  nfc_init();
+
+  //ble_set_device_name(DEVICE_NAME);
+  //qwr_init();
+  
+  
+
+  //peer_manager_init(true);
+  //NRF_LOG_INFO("Bonds erased!");
+  //nfc_pairing_init();
+  //peer_manager_delete_peers();
+
+
   ble_stack_init();
-  ble_set_device_name(DEVICE_NAME);
   gap_params_init();
   gatt_init();
   qwr_init();
   smart_lock_services_init();
-  advertising_init();
+  new_advertising_init();
   conn_params_init();
-  peer_manager_init(true);
-  NRF_LOG_INFO("Bonds erased!");
-  nfc_pairing_init();
-  peer_manager_delete_peers();
+  //advertising_start();
+
+
+
   persistent_storage_init();
   security_init();
+
 
   //disengage both motors
   lock_mech_disengage_admin();
@@ -306,6 +322,7 @@ void smart_lock_init(void) {
 
   // Start execution.
   NRF_LOG_INFO("GoVelo Smart Lock Initialised and Running");
+  NRF_LOG_FLUSH();
 }
 
 /**@brief Main loop of the smart lock.
@@ -317,6 +334,7 @@ void smart_lock_run(void) {
     power_management_idle_state_handle();
     lock_mech_status = lock_mech_get_status();
     if (lock_mech_status == SMART_LOCK_LOCKED) {
+      ble_run();
       mpu_check();
     }
   }

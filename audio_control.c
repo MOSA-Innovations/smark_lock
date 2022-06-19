@@ -25,15 +25,21 @@
 #include "nrf_delay.h"
 #include "nrf_gpio.h"
 #include "hardware.h"
-
+#include "nrf_log.h"
+#include "nrf_log_ctrl.h"
+#include "nrf_log_default_backends.h"
 
 #define LOCK_SUCCESS_BEEP_LENGTH_MS     (30)
 #define LOCK_FAIL_BEEP_LENGTH_MS        (3000)
 #define UNLOCK_SUCCESS_BEEP_LENGTH_MS   (30)
 #define UNLOCK_FAIL_BEEP_LENGTH_MS      (1000)
 
- // nrf_gpio_cfg_output(BUZZER);
- // nrf_gpio_pin_clear(BUZZER);
+//#define LOCK_SUCCESS_BEEP_LENGTH_MS     (30)
+//#define LOCK_FAIL_BEEP_LENGTH_MS        (3000)
+//#define UNLOCK_SUCCESS_BEEP_LENGTH_MS   (30)
+//#define UNLOCK_FAIL_BEEP_LENGTH_MS      (1000)
+
+
 
 typedef struct 
 {
@@ -56,12 +62,14 @@ void audio_beeper_control(bool enable)
         smart_lock_audio.beep_on = false;
 
     nrf_gpio_pin_toggle(BUZZER_PIN);
+
 }
 
 void audio_init(void)
 {
     nrf_gpio_cfg_output(BUZZER_PIN);
     nrf_gpio_pin_clear(BUZZER_PIN);
+    nrf_gpio_pin_write(BUZZER_PIN,0);
 
     smart_lock_audio.beep_on = false;
 
@@ -73,6 +81,7 @@ void audio_beep_lock_success_event(void)
     audio_beeper_control(true);
     nrf_delay_ms(LOCK_SUCCESS_BEEP_LENGTH_MS);
     audio_beeper_control(false);
+    
 }
 
 void audio_beep_unlock_success_event(void)
@@ -80,6 +89,7 @@ void audio_beep_unlock_success_event(void)
     audio_beeper_control(true);
     nrf_delay_ms(UNLOCK_SUCCESS_BEEP_LENGTH_MS);
     audio_beeper_control(false);
+    
 }
 
 void audio_beep_lock_fail_event(void)
@@ -87,6 +97,7 @@ void audio_beep_lock_fail_event(void)
     audio_beeper_control(true);
     nrf_delay_ms(LOCK_FAIL_BEEP_LENGTH_MS);
     audio_beeper_control(false);
+    
 }
 
 void audio_beep_unlock_fail_event(void)
@@ -94,6 +105,7 @@ void audio_beep_unlock_fail_event(void)
     audio_beeper_control(true);
     nrf_delay_ms(UNLOCK_FAIL_BEEP_LENGTH_MS);
     audio_beeper_control(false);
+    
 }
 
 

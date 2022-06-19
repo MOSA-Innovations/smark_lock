@@ -232,6 +232,7 @@
       <file file_name="$(nRF_SDK_ROOT)/components/nfc/ndef/generic/record/nfc_ndef_record.c" />
       <file file_name="$(nRF_SDK_ROOT)/components/nfc/platform/nfc_platform.c" />
       <file file_name="$(nRF_SDK_ROOT)/components/nfc/t2t_lib/nfc_t2t_lib_gcc.a" />
+      <file file_name="$(nRF_SDK_ROOT)/components/nfc/ndef/text/nfc_text_rec.c" />
     </folder>
     <folder Name="nRF_SoftDevice">
       <file file_name="$(nRF_SDK_ROOT)/components/softdevice/common/nrf_sdh.c" />

@@ -68,4 +68,3 @@ uint32_t nrf_drv_mpu_write_magnetometer_register(uint8_t reg, uint8_t data);
 /**
   @}
 */
-

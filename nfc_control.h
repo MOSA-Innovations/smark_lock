@@ -21,11 +21,16 @@
  *              and NFC connections.
  */
 
+
 #ifndef NFC_CONTROL_H__
 #define NFC_CONTROL_H__
 
-/**@brief Function for initializing NFC BLE pairing module.
- */
-void nfc_pairing_init();
+
+
+
+bool is_nfc_event_field_on(void);
+
+int nfc_init(void);
+
 
 #endif//NFC_CONTROL_H__

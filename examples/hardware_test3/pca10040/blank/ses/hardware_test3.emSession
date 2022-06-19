@@ -55,7 +55,7 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="4" y="363" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../main.c" selected="1" top="350" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="20" y="78" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../main.c" selected="1" top="44" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="36" y="59" useTextEdit="1" openedFrom="/home/pavlos/workspace/projects/mosa/github/smark_lock/examples/hardware_test3/main.c" useBinaryEdit="0" left="0" path="../../../nrf_drv_WS2812.c" selected="0" top="46" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="26" y="1472" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../config/sdk_config.h" selected="0" top="727" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="30" y="19" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../nrf_drv_WS2812.h" selected="0" top="15" codecName="Default"/>
